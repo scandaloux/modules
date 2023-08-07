@@ -56,11 +56,6 @@ return function(Config)
 		end
 	end)
 	Tool.Unequipped:Connect(function()
-		if Model then
-			Object.Motor:Destroy()
-			Model.Parent = nil
-		end
-
 		local Character = owner.Character
 		local Neck = Character:FindFirstChild("Neck", true)
 		local LS = Character:FindFirstChild("Left Shoulder", true)
@@ -80,6 +75,12 @@ return function(Config)
 		end
 		if RS then
 			TweenService:Create(RS, FadeIn, {C0 = CFrame.new(1, 0.5, 0, 0, 0, 1, 0, 1, 0, -1, -0, -0)}):Play()
+		end
+		if Object.Motor then
+			Object.Motor:Destroy()
+		end
+		if Model then
+			Model.Parent = nil
 		end
 	end)
 
