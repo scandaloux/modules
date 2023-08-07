@@ -9,18 +9,9 @@ Pretty messily put together, may be redone a lot.
 ]]
 
 return function(Config)
-	local Tracks = {}
-	for Name, Data in Config.Animations do
-		local Anim = Instance.new("Animation")
-		Anim.AnimationId = "rbxassetid://"..Data.ID
-		local Track = owner.Character.Humanoid.Animator:LoadAnimation(Anim)
-		Track.Priority = Data.Priority
-		Tracks[Name] = Track
-	end
-	
 	local Object = {}
 	Object.Tracks = Tracks
-	
+
 	local CameraPitch = Instance.new("Part")
 	CameraPitch.Transparency = 1
 	CameraPitch.CanCollide = false
@@ -49,15 +40,12 @@ return function(Config)
 			end
 		end
 	end]], CameraPitch)
-	
+
 	local Model = Config.Model
 	local Tool = Instance.new("Tool", owner.Backpack)
 	Tool.Name = Config.Name or "Tool"
 	Tool.RequiresHandle = false
 	Tool.Equipped:Connect(function()
-		Tracks.Equip:Play()
-		Tracks.Idle:Play()
-
 		if Model then
 			Model.Parent = Tool.Parent
 			local Motor = Instance.new("Motor6D", Model)
@@ -68,14 +56,11 @@ return function(Config)
 		end
 	end)
 	Tool.Unequipped:Connect(function()
-		for _, Track in Tracks do
-			Track:Stop()
-		end
 		if Model then
 			Object.Motor:Destroy()
 			Model.Parent = nil
 		end
-		
+
 		local Character = owner.Character
 		local Neck = Character:FindFirstChild("Neck", true)
 		local LS = Character:FindFirstChild("Left Shoulder", true)
@@ -134,7 +119,7 @@ return function(Config)
 			end
 		end
 	end)
-	
+
 	return setmetatable({}, {
 		__index = function(_, Index: string)
 			local Root = Object
