@@ -68,4 +68,4 @@ function Grid:GetSurrounding(Position: Vector3, Normals: {Enum.NormalId}?)
 	return Values
 end
 
-return Cells
+return Grid
