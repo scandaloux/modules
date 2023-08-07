@@ -61,6 +61,7 @@ return function(Config)
 		if Model then
 			Model.Parent = Tool.Parent
 			local Motor = Instance.new("Motor6D", Model)
+			Motor.C0 = Config.MotorGrip or CFrame.identity
 			Motor.Part0 = Tool.Parent:WaitForChild("Right Arm")
 			Motor.Part1 = Model
 			Object.Motor = Motor
